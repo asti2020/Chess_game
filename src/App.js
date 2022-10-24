@@ -6,7 +6,7 @@ import {React} from 'react';
 import {Route, Routes} from 'react-router-dom';
 import Login from './Login.js';
 import TypeError from './TypeError.js';
-import MyChase from './MyChase.js';
+import Board from './Board.js';
 
 function App() {
 
@@ -20,7 +20,7 @@ function App() {
         <Routes>
             <Route path="/" element={<Login/>}/>
             <Route path="*" element={<TypeError />}/>
-            <Route path="/" element={<MyChase/>}/>
+            <Route path="/" element={<Board/>}/>
         </Routes>
     </div>
 

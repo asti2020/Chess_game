@@ -1,5 +1,5 @@
 import React from 'react';
- function MyChase()
+ function Board()
 {
     return(
         <div className="MyChase">
@@ -8,4 +8,4 @@ import React from 'react';
     )
 }
 
-export default MyChase;
+export default Board;

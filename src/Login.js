@@ -3,7 +3,7 @@ import './App.js'
 import {useState} from 'react';
 import FormUser from './FormUser.js';
 import FormReg from './FormReg.js';
-import MyChase from './MyChase.js';
+import Board from './Board.js';
 
 function Login() {
     const [login, setLogin] = useState(true);
@@ -30,7 +30,7 @@ function Login() {
     return (
         <div className="login">
             <div>
-                <button onClick={handleClickGuest}>{guest ? <h3>Guest</h3> : < MyChase />}</button>
+                <button onClick={handleClickGuest}>{guest ? <h3>Guest</h3> : < Board />}</button>
             </div>
             <div  className="loginBtn">
                 <button className="loginButton" onClick={handleClickLog}> {login ? <h3>login</h3> : <FormUser />}</button>
