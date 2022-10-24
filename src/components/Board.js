@@ -1,10 +1,10 @@
-import './App.css';
 import {useState} from 'react'
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 
-function App() {
+function Board({ position }) {
   const [game, setGame] = useState(new Chess())
+    game.load(position)
 
   function makeAMove(move) {
     console.log(move)
@@ -12,11 +12,20 @@ function App() {
     const result = gameCopy.move(move);
     setGame(gameCopy);
 
+    fetch(`http://localhost:9292/games/${id}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify()
+    })
+ 
+
     return result; // null if the move was illegal, the move object if the move was legal
   }
 
   function onDrop(sourceSquare, targetSquare, piece) {
-    console.log(sourceSquare[1], targetSquare[1], piece[1].toLowerCase)
+    // console.log(sourceSquare[1], targetSquare[1], piece[1].toLowerCase)
     let move;
     if ((sourceSquare[1] === '7' && piece[1].toLowerCase() === 'p' && targetSquare[1] === '8') || (sourceSquare[1] === '2' && piece[1].toLowerCase() === 'p' && targetSquare[1] === '1')) {
       move = makeAMove({
@@ -30,8 +39,8 @@ function App() {
         to: targetSquare
       });
     }
-
-    console.log(move)
+    
+    console.log(game.fen())
 
     // illegal move
     if (move === null) return false;
@@ -46,4 +55,4 @@ function App() {
   );
 }
 
-export default App;
+export default Board;
