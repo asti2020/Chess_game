@@ -2,7 +2,7 @@ import {useState} from 'react'
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 
-function Board({ position }) {
+function Board({ position, id }) {
   const [game, setGame] = useState(new Chess())
     game.load(position)
 
