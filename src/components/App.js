@@ -15,7 +15,7 @@ function App() {
     const [id, setId] = useState(null)
 
     useEffect(() => {
-        fetch('http://localhost:3003')
+        fetch('http://localhost:9292/{userId}/games')
         .then(r => r.json())
         .then(obj => setGames(obj))
     }, [])
@@ -28,9 +28,10 @@ function App() {
     return (
         <div>
         <Routes>
-            <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
+            <Route path='/home' element={<List games={games} handleClick={handleClick} />} />
             <Route path='/board' element={<Board position={position} id={id}/>} />
-            <Route path="/" element={<Login/>}/>
+            <Route path="/" element={<Login />}/>
+            <Route path='/login' element={<Login />} />
             <Route path="*" element={<TypeError />}/>
         </Routes>
         </div>

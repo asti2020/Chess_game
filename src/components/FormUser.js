@@ -1,15 +1,24 @@
 import {React, useState} from 'react';
-// import { Form } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function FormUser(){
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const navegation = useNavigate();
 
 
     function handleSubmit(e){
+        // const navegation = useNavigate();
+
         e.preventDefault();
-        console.log(email, password);
+        navegation('/board')
+        // console.log(email, password);
+        // if (email === 'email' && password === 'password') {
+        //     navegation('/board')
+        // } else {
+        // navegation('/Login')
+        // }
     }
     return (
         <div className="Form_user">

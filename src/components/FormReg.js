@@ -1,18 +1,21 @@
 import {React, useState} from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function FormReg() {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [userName, setUserName] = useState('')
+    const navegation = useNavigate();
 
 
     function handleSubmit(e){
         e.preventDefault();
         console.log(email, password, userName);
+        navegation('/Login')
     }
 
-    fetch('http://localhost:9292/users', {
+    fetch('http://localhost:9292/users/:id', {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',

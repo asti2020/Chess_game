@@ -51,6 +51,8 @@ function Board({ position, id }) {
     return (
         <div>
         <Chessboard id="BasicBoard" position={game.fen()} onPieceDrop={onDrop} />
+        {/* <KilledPieces />
+        <Score /> */}
         </div>
     );
 }
