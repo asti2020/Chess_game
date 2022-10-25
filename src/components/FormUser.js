@@ -12,7 +12,7 @@ function FormUser(){
         // const navegation = useNavigate();
 
         e.preventDefault();
-        navegation('/board')
+            navegation('/board')
         // console.log(email, password);
         // if (email === 'email' && password === 'password') {
         //     navegation('/board')

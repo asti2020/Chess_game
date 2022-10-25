@@ -13,21 +13,23 @@ function FormReg() {
         e.preventDefault();
         console.log(email, password, userName);
         navegation('/Login')
+
+        fetch('http://localhost:9292/users', {
+            method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            }, body: JSON.stringify({
+                email: email,
+                password: password,
+                userName: userName
+            })
+        })
+        .then(res => res.json())
+        .then(data => console.log(data))
     }
 
-    fetch('http://localhost:9292/users/:id', {
-        method: 'POST',
-        headers: { 
-            'Content-Type': 'application/json',
-            'Accept': 'application/json'
-        }, body: JSON.stringify({
-            email: email,
-            password: password,
-            userName: userName
-        })
-    })
-    .then(res => res.json())
-    .then(data => console.log(data))
+
     
     return (
         <div className="FormReg">
