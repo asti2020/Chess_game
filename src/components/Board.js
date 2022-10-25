@@ -1,26 +1,33 @@
-import {useState} from 'react'
+import { useState, useEffect } from 'react'
 import { Chessboard } from "react-chessboard";
 import { Chess } from "chess.js";
 
 function Board({ position, id }) {
   const [game, setGame] = useState(new Chess())
+
+  useEffect(() => {
     game.load(position)
+  }, [])
+  console.log(game.turn())
+  
 
   function makeAMove(move) {
-    console.log(move)
+    // console.log(move)
     const gameCopy = Object.assign(Object.create(Object.getPrototypeOf(game)), game);
     const result = gameCopy.move(move);
     setGame(gameCopy);
+    console.log(game.fen())
 
-    fetch(`http://localhost:9292/games/${id}`, {
+    fetch(`http://localhost:9292/allgames/${id}`, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify()
+        body: JSON.stringify({position: game.fen()})
     })
+    .then(obj => console.log(obj))
  
-
+    console.log(result)
     return result; // null if the move was illegal, the move object if the move was legal
   }
 
@@ -40,7 +47,7 @@ function Board({ position, id }) {
       });
     }
     
-    console.log(game.fen())
+    // console.log(game.fen())
 
     // illegal move
     if (move === null) return false;

@@ -30,7 +30,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
-        <Route path='/board' element={<Board position={position} id={id}/>} />
+        <Route path='/board' element={<Board position={position} id={id} setPosition={setPosition}/>} />
         <Route path="/" element={<Login/>}/>
         <Route path="*" element={<TypeError />}/>
         <Route path="/" element={<Board/>}/>

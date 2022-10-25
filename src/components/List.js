@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import ListItem from './ListItem'
 import { NavLink } from 'react-router-dom'
 
-export default function List({games, handleClick}) {
+export default function List({ games, handleClick }) {
 
   return (
     games.map(game => (

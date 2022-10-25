@@ -8,7 +8,6 @@ import Board from './Board.js';
 function Login() {
     const [login, setLogin] = useState(true);
     const [regester, setRegester] = useState(true)
-    const [guest, setGuest] = useState(true)
 
 
 
@@ -22,21 +21,13 @@ function Login() {
         setRegester(!regester);
     }
 
-    const handleClickGuest = (e) => {
-        e.preventDefault();
-        setGuest(!guest);
-    }
-
     return (
         <div className="login">
-            <div>
-                <button onClick={handleClickGuest}>{guest ? <h3>Guest</h3> : < Board />}</button>
-            </div>
             <div  className="loginBtn">
-                <button className="loginButton" onClick={handleClickLog}> {login ? <h3>login</h3> : <FormUser />}</button>
+                {login ? <button className="loginButton" onClick={handleClickLog}> <h3>login</h3> </button> : <FormUser />}
             </div>
             <div  className="regBtn">
-                <button className="loginButton" onClick={handleClickReg}>{regester ? <h3>register</h3> : <FormReg />}</button>
+                {regester ? <button className="loginButton" onClick={handleClickReg}> <h3>register</h3> </button> : <FormReg />}
             </div>
         </div>
 

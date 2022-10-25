@@ -16,7 +16,7 @@ function FormUser(){
 
             <form  onSubmit={handleSubmit}>
                 <div className="form-group">
-                    <label for="exampleInputEmail1">Email address</label>   
+                    <label for="exampleInputEmail1"></label>   
                     <input type="email"
                         className="form-control" 
                         id="exampleInputEmail1" 
@@ -25,11 +25,11 @@ function FormUser(){
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                    <small id="emailHelp" className="form-text text-muted"></small>
                     <input 
                         type="password" 
                         className="form_control" 
-                        placeholder="Enter your password"
+                        placeholder="Enter password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
