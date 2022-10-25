@@ -1,8 +1,11 @@
 import {React, useState} from 'react';
+import { useNavigate } from 'react-router-dom'
 // import { Form } from 'react-router-dom';
 
 
 function FormUser(){
+    const navigate = useNavigate()
+
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -10,6 +13,7 @@ function FormUser(){
     function handleSubmit(e){
         e.preventDefault();
         console.log(email, password);
+        navigate('/home')
     }
     return (
         <div className="Form_user">

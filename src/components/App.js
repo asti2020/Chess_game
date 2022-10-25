@@ -5,15 +5,17 @@ import { Routes, Route } from "react-router-dom"
 import {useState, useEffect} from 'react'
 import Login from './Login';
 import TypeError from './TypeError';
+import { Chess } from 'chess.js'
 
 
 function App() {
 
-  let userId = 1;
+  let userId = 2;
 
   const [games, setGames] = useState([])
-  const [position, setPosition] = useState('')
+  // const [position, setPosition] = useState('')
   const [id, setId] = useState(null)
+  const [game, setGame] = useState(new Chess())
 
   useEffect(() => {
     fetch(`http://localhost:9292/mygames/${userId}`)
@@ -21,8 +23,7 @@ function App() {
     .then(obj => setGames(obj))
   }, [])
 
-  function handleClick(pos, id) {
-    setPosition(pos)
+  function handleClick(id) {
     setId(id)
   }
 
@@ -30,7 +31,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
-        <Route path='/board' element={<Board position={position} id={id} setPosition={setPosition}/>} />
+        <Route path='/board' element={<Board id={id} game={game} setGame={setGame}/>} />
         <Route path="/" element={<Login/>}/>
         <Route path="*" element={<TypeError />}/>
         <Route path="/" element={<Board/>}/>

@@ -3,7 +3,6 @@ import './App.js'
 import {useState} from 'react';
 import FormUser from './FormUser.js';
 import FormReg from './FormReg.js';
-import Board from './Board.js';
 
 function Login() {
     const [login, setLogin] = useState(true);
