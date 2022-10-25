@@ -3,22 +3,19 @@ import { useNavigate } from 'react-router-dom'
 // import { Form } from 'react-router-dom';
 
 
-function FormUser(){
+function FormUser( {handleLoginSubmit} ){
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
 
-    function handleSubmit(e){
-        e.preventDefault();
-        console.log(email, password);
-        navigate('/home')
-    }
+
+
     return (
         <div className="Form_user">
 
-            <form  onSubmit={handleSubmit}>
+            <form  onSubmit={e => handleLoginSubmit(e, email, password)}>
                 <div className="form-group">
                     <label for="exampleInputEmail1"></label>   
                     <input type="email"

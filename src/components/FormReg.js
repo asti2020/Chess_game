@@ -1,17 +1,37 @@
 import {React, useState} from 'react';
 
-function FormReg() {
+function FormReg({ setLogin, setRegister }) {
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordAgain, setPasswordAgain] = useState('')
-    const [userName, setUserName] = useState('')
+    const [username, setUsername] = useState('')
 
 
 
     function handleSubmit(e){
         e.preventDefault();
-        console.log(userName, email, password, passwordAgain);
+        console.log(username, email, password, passwordAgain);
+        if (password === passwordAgain) {
+            fetch('http://localhost:9292/users', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }, body: JSON.stringify({
+                    username: username,
+                    email: email,
+                    password: password,
+                })
+            })
+            .then(res => res.json())
+            .then(data => console.log(data))
+            setLogin(false)
+            setRegister(true)
+        } else {
+            console.log('your passswords don\'t match')
+        }
+                
     }
 
     return (
@@ -25,8 +45,8 @@ function FormReg() {
                         // id="Create User Name"
                         aria-describedby="emailHelp"
                         placeholder="Enter User Name"
-                        onChange={(e) => setUserName(e.target.value)}
-                        value={userName}
+                        onChange={(e) => setUsername(e.target.value)}
+                        value={username}
                     />
 
                     <label for="exampleInputEmail1"></label>   

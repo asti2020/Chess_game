@@ -4,9 +4,9 @@ import {useState} from 'react';
 import FormUser from './FormUser.js';
 import FormReg from './FormReg.js';
 
-function Login() {
+function Login({ handleLoginSubmit }) {
     const [login, setLogin] = useState(true);
-    const [regester, setRegester] = useState(true)
+    const [register, setRegister] = useState(true)
 
 
 
@@ -17,16 +17,16 @@ function Login() {
 
     const handleClickReg = (e) => {
         e.preventDefault();
-        setRegester(!regester);
+        setRegister(!register);
     }
 
     return (
         <div className="login">
             <div  className="loginBtn">
-                {login ? <button className="loginButton" onClick={handleClickLog}> <h3>login</h3> </button> : <FormUser />}
+                {login ? <button className="loginButton" onClick={handleClickLog}> <h3>login</h3> </button> : <FormUser handleLoginSubmit={handleLoginSubmit}/>}
             </div>
             <div  className="regBtn">
-                {regester ? <button className="loginButton" onClick={handleClickReg}> <h3>register</h3> </button> : <FormReg />}
+                {register ? <button className="loginButton" onClick={handleClickReg}> <h3>register</h3> </button> : <FormReg setLogin={setLogin} setRegister={setRegister}/>}
             </div>
         </div>
 
