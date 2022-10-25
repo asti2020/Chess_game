@@ -11,6 +11,21 @@ function FormReg() {
         e.preventDefault();
         console.log(email, password, userName);
     }
+
+    fetch('http://localhost:9292/users', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        }, body: JSON.stringify({
+            email: email,
+            password: password,
+            userName: userName
+        })
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
+    
     return (
         <div className="FormReg">
             <form  onSubmit={handleSubmit}>
@@ -19,7 +34,7 @@ function FormReg() {
                     <label for="Create User Name"></label>
                     <input type="text"
                         className="form-control"
-                        // id="Create User Name"
+                        id="Create User Name"
                         aria-describedby="emailHelp"
                         placeholder="Create User Name"
                         onChange={(e) => setUserName(e.target.value)}
@@ -29,7 +44,7 @@ function FormReg() {
                     <label for="exampleInputEmail1">Email address</label>   
                     <input type="email"
                         className="form-control" 
-                        // id="exampleInputEmail1" 
+                        id="exampleInputEmail1" 
                         aria-describedby="emailHelp" 
                         placeholder="Enter email"
                         onChange={(e) => setEmail(e.target.value)}

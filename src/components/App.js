@@ -9,34 +9,32 @@ import TypeError from './TypeError';
 
 function App() {
 
-  let userId = 1;
+    let userId = 1;
+    const [games, setGames] = useState([])
+    const [position, setPosition] = useState('')
+    const [id, setId] = useState(null)
 
-  const [games, setGames] = useState([])
-  const [position, setPosition] = useState('')
-  const [id, setId] = useState(null)
+    useEffect(() => {
+        fetch('http://localhost:3003')
+        .then(r => r.json())
+        .then(obj => setGames(obj))
+    }, [])
 
-  useEffect(() => {
-    fetch(`http://localhost:9292/mygames/${userId}`)
-    .then(r => r.json())
-    .then(obj => setGames(obj))
-  }, [])
+    function handleClick(pos, id) {
+        setPosition(pos)
+        setId(id)
+    }
 
-  function handleClick(pos, id) {
-    setPosition(pos)
-    setId(id)
-  }
-
-  return (
-    <div>
-      <Routes>
-        <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
-        <Route path='/board' element={<Board position={position} id={id}/>} />
-        <Route path="/" element={<Login/>}/>
-        <Route path="*" element={<TypeError />}/>
-        <Route path="/" element={<Board/>}/>
-      </Routes>
-    </div>
-  );
+    return (
+        <div>
+        <Routes>
+            <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
+            <Route path='/board' element={<Board position={position} id={id}/>} />
+            <Route path="/" element={<Login/>}/>
+            <Route path="*" element={<TypeError />}/>
+        </Routes>
+        </div>
+    );
 }
 
 export default App;
