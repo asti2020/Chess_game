@@ -11,6 +11,7 @@ import { Chess } from 'chess.js'
 function App() {
   const navigate = useNavigate()
   const [users, setUsers] = useState(null)
+  const [userId, setUserId] = useState(null)
 
   const [games, setGames] = useState([])
   const [id, setId] = useState(null)
@@ -30,7 +31,10 @@ function App() {
       if (user.email === email && user.password === password) {
         fetch(`http://localhost:9292/mygames/${user.id}`)
         .then(r => r.json())
-        .then(obj => setGames(obj))
+        .then(obj => {
+          setGames(obj)
+          setUserId(user.id)
+        })
         .then(() => navigate('/home'))
         return true
       }
@@ -47,7 +51,7 @@ function App() {
     <div>
       <Routes>
         <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
-        <Route path='/board' element={<Board id={id} game={game} setGame={setGame}/>} />
+        <Route path='/board' element={<Board id={id} game={game} setGame={setGame} userId={userId}/>} />
         <Route path="/" element={<Login handleLoginSubmit={handleLoginSubmit}/>}/>
         {/* <Route path='/login' element={<Login />} /> */}
         <Route path="*" element={<TypeError />}/>
