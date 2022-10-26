@@ -1,6 +1,9 @@
 import {React, useState} from 'react';
+import {useNavigate} from 'react-router-dom';
 
 function FormReg({ setLogin, setRegister }) {
+
+    const navigate = useNavigate()
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -28,6 +31,8 @@ function FormReg({ setLogin, setRegister }) {
             .then(data => console.log(data))
             setLogin(false)
             setRegister(true)
+            navigate('/login')
+        
         } else {
             console.log('your passswords don\'t match')
         }
@@ -42,7 +47,7 @@ function FormReg({ setLogin, setRegister }) {
                     <label for="Create User Name"></label>
                     <input type="text"
                         className="form-control"
-                        // id="Create User Name"
+                        id="Create User Name"
                         aria-describedby="emailHelp"
                         placeholder="Enter User Name"
                         onChange={(e) => setUsername(e.target.value)}
@@ -52,7 +57,7 @@ function FormReg({ setLogin, setRegister }) {
                     <label for="exampleInputEmail1"></label>   
                     <input type="email"
                         className="form-control" 
-                        // id="exampleInputEmail1" 
+                        id="exampleInputEmail1" 
                         aria-describedby="emailHelp" 
                         placeholder="Enter email"
                         onChange={(e) => setEmail(e.target.value)}
@@ -72,8 +77,8 @@ function FormReg({ setLogin, setRegister }) {
                         placeholder="Enter password again"
                         onChange={(e) => setPasswordAgain(e.target.value)}
                         value={passwordAgain}
-                    />
-                    <input type="submit"/>
+                    />                        
+                    <input type="submit"/>                  
 
                 </div>
             </form>

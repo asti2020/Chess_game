@@ -9,52 +9,55 @@ import { Chess } from 'chess.js'
 
 
 function App() {
-  const navigate = useNavigate()
-  const [users, setUsers] = useState(null)
+    const navigate = useNavigate()
+    const [users, setUsers] = useState(null)
 
-  const [games, setGames] = useState([])
-  const [id, setId] = useState(null)
-  const [game, setGame] = useState(new Chess())
+    const [games, setGames] = useState([])
+    const [id, setId] = useState(null)
+    const [game, setGame] = useState(new Chess())
 
-  useEffect(() => {
-    fetch('http://localhost:9292/users')
-    .then(res => res.json())
-    .then(obj => {
-      setUsers(obj)
-    })
-  }, [])
-  
-  function handleLoginSubmit(e, email, password){
-    e.preventDefault();
-    users.map((user) => {
-      if (user.email === email && user.password === password) {
-        fetch(`http://localhost:9292/mygames/${user.id}`)
-        .then(r => r.json())
-        .then(obj => setGames(obj))
-        .then(() => navigate('/home'))
-        return true
-      }
-    })
-  }
+    useEffect(() => {
+        fetch('http://localhost:9292/users')
+        .then(res => res.json())
+        .then(obj => {
+        setUsers(obj)
+        })
+    }, [])
 
-  // let userId = 2;
+    console.log(users)
+    
+    function handleLoginSubmit(e, email, password){
+        e.preventDefault();
+        users.filter((user) => {
+            if (user.email === email && user.password === password) {
+                fetch(`http://localhost:9292/mygames/${user.id}`)
+                .then(r => r.json())
+                .then(obj => setGames(obj))
+                .then(() => navigate('/home'))
+                return true
+            }else{
+                return false
+            }
+        })
 
-  function handleClick(id) {
-    setId(id)
-  }
+    }
 
-  return (
-    <div>
-      <Routes>
-        <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
-        <Route path='/board' element={<Board id={id} game={game} setGame={setGame}/>} />
-        <Route path="/" element={<Login handleLoginSubmit={handleLoginSubmit}/>}/>
-        {/* <Route path='/login' element={<Login />} /> */}
-        <Route path="*" element={<TypeError />}/>
-        <Route path="/" element={<Board/>}/>
-      </Routes>
-    </div>
-  );
+    // let userId = 2;
+
+    function handleClick(id) {
+        setId(id)
+    }
+
+    return (
+        <div>
+        <Routes>
+            <Route path='/home' element={<List games={games} handleClick={handleClick}/>} />
+            <Route path='/board' element={<Board id={id} game={game} setGame={setGame}/>} />
+            <Route path="/" element={<Login handleLoginSubmit={handleLoginSubmit}/>}/>
+            <Route path="*" element={<TypeError />}/>
+        </Routes>
+        </div>
+    );
 }
 
 export default App;

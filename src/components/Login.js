@@ -11,7 +11,7 @@ function Login({ handleLoginSubmit }) {
 
 
     const handleClickLog = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         setLogin(!login);
     }
 
