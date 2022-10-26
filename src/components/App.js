@@ -10,6 +10,8 @@ import { Chess } from 'chess.js'
 
 function App() {
   const navigate = useNavigate()
+  
+
   const [username, setUsername] = useState(null)
   const [userId, setUserId] = useState(null)
 
@@ -22,37 +24,18 @@ function App() {
   function handleLoginSubmit(e, email, password){
     e.preventDefault();
 
-    // fetch('http://localhost:9292/login/',{
-    //   method: 'POST',
-    //   headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept': 'application/json'
-    //   },
-    //   body: JSON.stringify({
-    //       email: email,
-    //       password: password
-    //   })
-    // })
-    // .then(res => res.json())
-    // .then(data => console.log(data))
-    // navigate('/home')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    fetch(`http://localhost:9292/users/${email}/${password}`)
-    .then(r => r.json())
+    console.log(email,password)
+    fetch('http://localhost:9292/login',{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            email: email,
+            password: password})
+    })
+    .then(res => res.json())
     .then(user => {
       setUserId(user.id)
       setUsername(user.username)
@@ -62,6 +45,7 @@ function App() {
       fetch(`http://localhost:9292/games/${user.id}`)
       .then(r => r.json())
       .then(obj => {
+        console.log(obj)
         setGames(obj)
       })
       .then(() => navigate('/home'))

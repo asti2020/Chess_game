@@ -7,12 +7,11 @@ function FormReg({ setLogin, setRegister }) {
     const [passwordAgain, setPasswordAgain] = useState('')
     const [username, setUsername] = useState('')
 
-
-
     function handleSubmit(e){
         e.preventDefault();
+
         console.log(username, email, password, passwordAgain);
-        if (password === passwordAgain) {
+  
             fetch('http://localhost:9292/users', {
                 method: 'POST',
                 headers: { 
@@ -28,10 +27,8 @@ function FormReg({ setLogin, setRegister }) {
             .then(data => console.log(data))
             setLogin(false)
             setRegister(true)
-        } else {
+
             console.log('your passswords don\'t match')
-        }
-                
     }
 
     return (
@@ -73,7 +70,7 @@ function FormReg({ setLogin, setRegister }) {
                         onChange={(e) => setPasswordAgain(e.target.value)}
                         value={passwordAgain}
                     />
-                    <input type="submit"/>
+                    {password===passwordAgain? <input type="submit"/> : <h4>passwords don't match</h4>}
 
                 </div>
             </form>
