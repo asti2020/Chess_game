@@ -8,26 +8,27 @@ function FormUser( {handleLoginSubmit} ){
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [user, setUser] = useState(' ')
 
-    function handleSubmit(e, email, password){
+    function handleSubmit(e){
         e.preventDefault();
-
-        fetch('http://localhost:9292/login/',{
+        console.log(email,password)
+        fetch('http://localhost:9292/login',{
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
             },
-            body: JSON.stringify
-            ({
+            body: JSON.stringify({
                 email: email,
-                password: password
-        })
+                password: password})
         })
         .then(res => res.json())
-        .then(data => console.log(data))
-        navigate('/board')
+        .then(data => setUser(data))
+        navigate('/home')
     }
+
+    console.log(user)
     
         // .then(res => res.json())
         // .then(data => {console.log(data))

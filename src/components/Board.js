@@ -6,7 +6,7 @@ function Board({ id, game, setGame }) {
     const [position, setPosition] = useState('')
 
     useEffect(() => {
-        fetch(`http://localhost:9292/allgames/${id}`)
+        fetch(`http://localhost:9292/allgames`)
             .then(res => res.json())
             .then(obj => {
             console.log(obj.position)
@@ -23,7 +23,7 @@ function Board({ id, game, setGame }) {
         const result = gameCopy.move(move);
         
         setGame(gameCopy);
-
+        console.log(id)
         fetch(`http://localhost:9292/allgames/${id}`, {
             method: 'PATCH',
             headers: {
