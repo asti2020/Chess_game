@@ -1,20 +1,23 @@
 import { Chess } from 'chess.js';
 import { useState, useEffect } from 'react'
 import { Chessboard } from "react-chessboard";
-// import { Chess } from "chess.js";
 
 function Board({ id, game, setGame, userId}) {
   
   const [position, setPosition] = useState('')
   const [side, setSide] = useState('')
 
-
+  if (game.isCheckmate()) {
+    alert('Checkmate!')
+  } else if (game.isStalemate()) {
+    alert('Stalemate!')
+  }
 
   useEffect(() => {
     fetch(`http://localhost:9292/allgames/${id}`)
     .then(res => res.json())
     .then(obj => {
-      console.log(obj.position)
+      // console.log(obj.position)
       game.load(obj.position)
       setPosition(obj.position) 
     })
@@ -24,7 +27,7 @@ function Board({ id, game, setGame, userId}) {
     fetch(`http://localhost:9292/side/${id}/${userId}`)
     .then(res => res.json())
     .then(obj => {
-      console.log(obj.side.toLowerCase()===game.turn())
+      // console.log(obj.side.toLowerCase()===game.turn())
       setSide(obj.side.toLowerCase())
     })
   }, [])
@@ -34,8 +37,6 @@ function Board({ id, game, setGame, userId}) {
   function makeAMove(move) {
     const gameCopy = Object.assign(Object.create(Object.getPrototypeOf(game)), game);
     const result = gameCopy.move(move);
-    
-    setGame(gameCopy);
 
     fetch(`http://localhost:9292/allgames/${id}`, {
         method: 'PATCH',
@@ -48,6 +49,12 @@ function Board({ id, game, setGame, userId}) {
     .then(obj => {
       setPosition(obj.position)
     })
+
+    if (gameCopy.isCheckmate()) {
+      alert('Checkmate!')
+    } else if (gameCopy.isStalemate()) {
+      alert('Stalemate!')
+    }
  
     return result; // null if the move was illegal, the move object if the move was legal
   }
@@ -62,7 +69,7 @@ function Board({ id, game, setGame, userId}) {
         promotion: 'q'
       });
     } else if (game.turn()===side) {
-      console.log('made')
+      // console.log('made')
       move = makeAMove({
         from: sourceSquare,
         to: targetSquare
@@ -76,7 +83,7 @@ function Board({ id, game, setGame, userId}) {
     }
 
   return (
-    <div>
+    <div className="board">
       <Chessboard id="BasicBoard" boardOrientation={side==='w' ? 'white' : 'black'} position={game.fen()} onPieceDrop={onDrop} />
     </div>
   );

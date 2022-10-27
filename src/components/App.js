@@ -19,12 +19,12 @@ function App() {
   const [id, setId] = useState(null)
   const [game, setGame] = useState(new Chess())
 
-  const [newGame, setNewGame] = useState('')
+  // const [newGame, setNewGame] = useState('')
   
   function handleLoginSubmit(e, email, password){
     e.preventDefault();
 
-    console.log(email,password)
+    // login
     fetch('http://localhost:9292/login',{
         method: 'POST',
         headers: {
@@ -42,6 +42,7 @@ function App() {
       return user
     })
     .then((user) => {
+      // get user's games once logged in
       fetch(`http://localhost:9292/games/${user.id}`)
       .then(r => r.json())
       .then(obj => {
@@ -52,7 +53,7 @@ function App() {
     })
   }
 
-
+  // sets game id when a game from the list is clicked
   function handleClick(id) {
     setId(id)
   }

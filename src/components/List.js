@@ -10,6 +10,7 @@ export default function List({ games, handleClick, username, userId, setGames })
     setInput(e.target.value)
   }
 
+  // new game submit
   function handleSubmit(e) {
     e.preventDefault()
 
@@ -68,15 +69,16 @@ export default function List({ games, handleClick, username, userId, setGames })
     <div>
       <h1>{username}</h1>
       {
+        // gets user's games from App.js
         games.map(game => {
-          // console.log(game.id)
           return (
           <NavLink to='/board' onClick={() => handleClick(game.id)}>
-            <ListItem key={game.id} id={game.id} position={game.position} userId={userId}/>
+            <ListItem key={game.id} id={game.id} userId={userId}/>
           </NavLink>
         )})
       }
       <h3>New Game</h3>
+      {/* new game form */}
       <form onSubmit={handleSubmit}>
         <label>opponent username:</label>
         <input type="text" onChange={handleChange}/>
