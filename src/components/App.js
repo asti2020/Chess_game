@@ -19,6 +19,8 @@ function App() {
   const [id, setId] = useState(null)
   const [game, setGame] = useState(new Chess())
 
+  const [ongoingGames, setOngoingGames] = useState(0)
+
   // const [newGame, setNewGame] = useState('')
   
   function handleLoginSubmit(e, email, password){
@@ -48,6 +50,7 @@ function App() {
       .then(obj => {
         console.log(obj)
         setGames(obj)
+        setOngoingGames(obj.filter(game => game.ongoing===0).length)
       })
       .then(() => navigate('/home'))
     })
@@ -61,8 +64,8 @@ function App() {
   return (
     <div>
       <Routes>
-        <Route path='/home' element={<List games={games} handleClick={handleClick} username={username} userId={userId} setGames={setGames}/>} />
-        <Route path='/board' element={<Board id={id} game={game} setGame={setGame} userId={userId}/>} />
+        <Route path='/home' element={<List games={games} handleClick={handleClick} username={username} userId={userId} setGames={setGames} ongoingGames={ongoingGames}/>} />
+        <Route path='/board' element={<Board id={id} game={game} setGame={setGame} userId={userId} setOngoingGames={setOngoingGames}/>} />
         <Route path="/" element={<Login handleLoginSubmit={handleLoginSubmit}/>}/>
         {/* <Route path='/login' element={<Login />} /> */}
         <Route path="*" element={<TypeError />}/>

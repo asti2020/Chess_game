@@ -1,16 +1,37 @@
 import { Chess } from 'chess.js';
 import { useState, useEffect } from 'react'
 import { Chessboard } from "react-chessboard";
+import { NavLink } from 'react-router-dom';
 
-function Board({ id, game, setGame, userId}) {
+function Board({ id, game, setGame, userId, setOngoingGames}) {
   
   const [position, setPosition] = useState('')
   const [side, setSide] = useState('')
+  const [isCheckmate, setIsCheckmate] = useState(false)
+  const [isStalemate, setIsStalemate] = useState(false)
 
-  if (game.isCheckmate()) {
-    alert('Checkmate!')
-  } else if (game.isStalemate()) {
-    alert('Stalemate!')
+  useEffect(() => {
+    if (game.isCheckmate()) {
+      setIsCheckmate(true)
+    } else if (game.isStalemate()) {
+      setIsCheckmate(true)
+    } else {
+      setIsCheckmate(false)
+      setIsStalemate(false)
+    }
+  }, [])
+
+  if (game.isGameOver()) {
+    fetch(`http://localhost:9292/ongoing/`, {
+      method: 'PATCH',
+      headers: {
+          'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        id: id,
+      })
+  })
+    .then(obj => setOngoingGames(1))
   }
 
   useEffect(() => {
@@ -51,9 +72,22 @@ function Board({ id, game, setGame, userId}) {
     })
 
     if (gameCopy.isCheckmate()) {
-      alert('Checkmate!')
+      setIsCheckmate(true)
     } else if (gameCopy.isStalemate()) {
-      alert('Stalemate!')
+      setIsCheckmate(true)
+    }
+
+    if (gameCopy.isGameOver()) {
+      fetch(`http://localhost:9292/ongoing/`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id,
+        })
+    })
+      .then(obj => setOngoingGames(1))
     }
  
     return result; // null if the move was illegal, the move object if the move was legal
@@ -83,8 +117,12 @@ function Board({ id, game, setGame, userId}) {
     }
 
   return (
-    <div className="board">
-      <Chessboard id="BasicBoard" boardOrientation={side==='w' ? 'white' : 'black'} position={game.fen()} onPieceDrop={onDrop} />
+    <div>
+      <NavLink to='/' className="logout">log out</NavLink>
+      <div className="board">
+        {isCheckmate||isStalemate? <h1>GameOver</h1> : null}
+        <Chessboard id="BasicBoard" boardOrientation={side==='w' ? 'white' : 'black'} position={game.fen()} onPieceDrop={onDrop} />
+      </div>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import ListItem from './ListItem'
 import { NavLink } from 'react-router-dom'
 
-export default function List({ games, handleClick, username, userId, setGames }) {
+export default function List({ games, handleClick, username, userId, setGames, ongoingGames }) {
   const [input, setInput] = useState('')
   
   function handleChange(e) {
@@ -66,22 +66,40 @@ export default function List({ games, handleClick, username, userId, setGames })
   }
 
   return (
-    <div>
+    <div className="list">
+      <NavLink to='/' className="logout">log out</NavLink>
       <h1>{username}</h1>
+      <h3>Current Games:</h3>
       {
         // gets user's games from App.js
         games.map(game => {
-          return (
-          <NavLink to='/board' onClick={() => handleClick(game.id)}>
-            <ListItem key={game.id} id={game.id} userId={userId}/>
-          </NavLink>
-        )})
+          if (game.ongoing===1) {
+            return (
+              <NavLink to='/board' onClick={() => handleClick(game.id)}>
+                <ListItem key={game} id={game.id} userId={userId}/>
+              </NavLink>
+            )
+          }
+        })
+      }
+      {
+        ongoingGames>=1 ? <h3>Past Games:</h3>: null
+      }
+      {
+        games.map(game => {
+          if (game.ongoing===0) {
+            return (
+              <NavLink to='/board' onClick={() => handleClick(game.id)}>
+                <ListItem key={game} id={game.id} userId={userId}/>
+              </NavLink>
+            )
+          }
+        })
       }
       <h3>New Game</h3>
       {/* new game form */}
-      <form onSubmit={handleSubmit}>
-        <label>opponent username:</label>
-        <input type="text" onChange={handleChange}/>
+      <form id="newGame" onSubmit={handleSubmit}>
+        <input className="formMargin" type="text" placeholder="opponent username" onChange={handleChange}/>
         <select id="dropdown">
           <option value="W">W</option>
           <option value="B">B</option>

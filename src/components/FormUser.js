@@ -34,7 +34,7 @@ function FormUser( {handleLoginSubmit} ){
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
-                    <input type="submit"/>
+                    <input type="submit" value="log in"/>
 
                 </div>
             </form>
