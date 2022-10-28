@@ -2,18 +2,37 @@
   text-align: center;
 }
 
+* {
+  font-size: 100%;
+  font-family: 'Times New Roman', Times, serif;
+ }
+
+#app {
+  position:absolute;
+  left: 0%;
+  right: 0%;
+  top: 0%;
+  bottom: 0%;
+}
+
 body {
-  background-color: rgb(249, 236, 216);
+  background-color: rgb(253, 253, 253);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 .login {
   position:absolute;
-  margin:5%;
-  
+  top: -8%;
+  left: 30%;
+  right: 40%;
+  bottom: 15%;
+  margin-top: 5%;
 }
 
 .loginButton{
-  background-color: rgb(50, 70, 96); /* Green */
+  background-color: rgb(50, 50, 50);
   border: none;
   color: white;
   padding: 10px 35px;
@@ -24,7 +43,7 @@ body {
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 10%;
+  border-radius: 20%;
 }
 
 .loginButton:hover{
@@ -39,20 +58,132 @@ body {
 }
 
 .list {
-  margin-top: 2%;
-  margin-left: 5%;
+  margin-top: 5%;
+  margin-left: 8%;
 }
 
 .logout {
-  position:absolute;
-  top: 2%;
-  right:5%
+  position: absolute;
+  top: 10%;
+  right: 5%
+  
 }
 
-#newGame {
+.submit {
   position:absolute;
+  left: 35%;
 }
 
-.formMargin {
+input {
+  justify-content: center;
+  margin-top: 5%;
+  margin-bottom: 5%;
+  background-color: rgb(184, 184, 184);
+}
+#form {
+  position: absolute;
+  top: 40%;
+  bottom: 40%;
+  left: 30%;
+  right: 10%;
+
+}
+
+.formUser {
+  background-color: rgb(28, 28, 28);
+  border-radius: 10%;
   margin: 2%;
+  height: 190px;
+  width: 200px;
+  justify-content: center;
+}
+
+#formReg {
+  position:absolute;
+  top: 30%;
+  left: 30%;
+  right: 20%;
+  bottom: 20%
+}
+
+#newGame{
+  border-radius: 10%;
+  height: 150px;
+  width: 200px;
+  justify-content: center;
+  position:absolute;
+  left: 43%;
+  top: 5%;
+}
+
+label {
+  color: rgb(0, 0, 0);
+  text-align: center;
+  font-weight: bolder;
+}
+
+.Button:hover{
+  background-color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
+  border-radius: 4%;
+}
+
+#board {
+}
+
+#register {
+  margin: 5%;
+}
+
+.item {
+  margin:5%;
+}
+
+.card-title {
+  margin: 8%;
+  margin-left: 10%;
+}
+
+h1 {
+  position:absolute;
+  right: 5%;
+  top: 4%;
+  color: rgb(0, 0, 0);
+}
+
+h3 {
+  color: rgb(0, 0, 0);
+  margin: 5%;
+}
+
+#past {
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: double;
+  border-color: rgb(213, 213, 213);
+  border-radius: 2%;
+  position: absolute;
+  top: 5%;
+  left: 24%;
+  right: 59%
+}
+
+#current {
+  background-color: rgb(255, 255, 255);
+  border-width: 1px;
+  border-style: double;
+  border-color: rgb(213, 213, 213);
+  border-radius: 2%;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  right: 78%;
+}
+
+#loginTxt {
+  color:white;
+}
+
+#registerTxt {
+  color: white;
 }

@@ -32,8 +32,8 @@ function FormReg({ setLogin, setRegister }) {
     }
 
     return (
-        <div className="FormReg">
-            <form  onSubmit={handleSubmit}>
+        <div id="formReg">
+            <form  className="form-control" onSubmit={handleSubmit}>
                 <div className="form-group">
 
                     <label for="Create User Name"></label>
@@ -58,19 +58,19 @@ function FormReg({ setLogin, setRegister }) {
 
                     <input 
                         type="password" 
-                        className="form_control" 
+                        className="form-control" 
                         placeholder="Enter password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
 
                     <input type="password"
-                        className="form_control"
+                        className="form-control"
                         placeholder="Enter password again"
                         onChange={(e) => setPasswordAgain(e.target.value)}
                         value={passwordAgain}
                     />
-                    {password===passwordAgain? <input type="submit"/> : <h4>passwords don't match</h4>}
+                    {password===passwordAgain? <input type="submit" className="form-control" value="Register"/> : <h4>passwords don't match</h4>}
 
                 </div>
             </form>

@@ -19,6 +19,7 @@ function App() {
   const [id, setId] = useState(null)
   const [game, setGame] = useState(new Chess())
 
+  const [ongoing, setOngoing] = useState(null)
   const [ongoingGames, setOngoingGames] = useState(0)
 
   // const [newGame, setNewGame] = useState('')
@@ -48,7 +49,7 @@ function App() {
       fetch(`http://localhost:9292/games/${user.id}`)
       .then(r => r.json())
       .then(obj => {
-        console.log(obj)
+        // console.log(obj)
         setGames(obj)
         setOngoingGames(obj.filter(game => game.ongoing===0).length)
       })
@@ -58,14 +59,18 @@ function App() {
 
   // sets game id when a game from the list is clicked
   function handleClick(id) {
+    fetch(`http://localhost:9292/allgames/${id}`)
+    .then(obj => obj.json())
+    .then(res => setOngoing(res.ongoing))
+    console.log(id)
     setId(id)
   }
 
   return (
-    <div>
+    <div id="app">
       <Routes>
         <Route path='/home' element={<List games={games} handleClick={handleClick} username={username} userId={userId} setGames={setGames} ongoingGames={ongoingGames}/>} />
-        <Route path='/board' element={<Board id={id} game={game} setGame={setGame} userId={userId} setOngoingGames={setOngoingGames}/>} />
+        <Route path='/board' element={<Board id={id} game={game} setGame={setGame} userId={userId} setOngoingGames={setOngoingGames} ongoing={ongoing}/>} />
         <Route path="/" element={<Login handleLoginSubmit={handleLoginSubmit}/>}/>
         {/* <Route path='/login' element={<Login />} /> */}
         <Route path="*" element={<TypeError />}/>

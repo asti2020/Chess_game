@@ -69,43 +69,54 @@ export default function List({ games, handleClick, username, userId, setGames, o
     <div className="list">
       <NavLink to='/' className="logout">log out</NavLink>
       <h1>{username}</h1>
-      <h3>Current Games:</h3>
-      {
-        // gets user's games from App.js
-        games.map(game => {
-          if (game.ongoing===1) {
-            return (
-              <NavLink to='/board' onClick={() => handleClick(game.id)}>
-                <ListItem key={game} id={game.id} userId={userId}/>
-              </NavLink>
-            )
+      <div id="current">
+        <h3>Current Games:</h3>
+        {
+          // gets user's games from App.js
+          games.map(game => {
+            if (game.ongoing===1) {
+              return (
+                <div className="item">
+                  <NavLink to='/board' onClick={() => handleClick(game.id)}>
+                    <ListItem  key={game} id={game.id} userId={userId}/>
+                  </NavLink>
+                </div>
+              )
+            }
+          })
+        }
+      </div>
+      {/* <hr class="my-4" id="line"></hr> */}
+      {ongoingGames>=1 ? (
+        <div id="past">
+            <h3>Past Games:</h3>
+          {
+            games.map(game => {
+              if (game.ongoing===0) {
+                return (
+                  <div className="item">
+                    <NavLink to='/board' onClick={() => handleClick(game.id)}>
+                      <ListItem key={game} id={game.id} userId={userId}/>
+                    </NavLink>
+                  </div>
+                )
+              }
+            })
           }
-        })
+        </div> 
+      ) : null
       }
-      {
-        ongoingGames>=1 ? <h3>Past Games:</h3>: null
-      }
-      {
-        games.map(game => {
-          if (game.ongoing===0) {
-            return (
-              <NavLink to='/board' onClick={() => handleClick(game.id)}>
-                <ListItem key={game} id={game.id} userId={userId}/>
-              </NavLink>
-            )
-          }
-        })
-      }
-      <h3>New Game</h3>
-      {/* new game form */}
-      <form id="newGame" onSubmit={handleSubmit}>
-        <input className="formMargin" type="text" placeholder="opponent username" onChange={handleChange}/>
-        <select id="dropdown">
-          <option value="W">W</option>
-          <option value="B">B</option>
-        </select>
-        <input type="submit" value="Challenge"/>
-      </form>
+      <div id="newGame">
+        <form className="form-control" onSubmit={handleSubmit}>
+          <label>New Game</label>
+          <input className="form-control" type="text" placeholder="opponent username" onChange={handleChange}/>
+          <select id="dropdown" className="form-control">
+            <option value="W">White</option>
+            <option value="B">Black</option>
+          </select>
+          <input type="submit" className="form-control" value="Challenge"/>
+        </form>
+      </div>
     </div>
   )
 }

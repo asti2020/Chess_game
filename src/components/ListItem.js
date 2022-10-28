@@ -9,8 +9,8 @@ export default function ListItem({ id, userId }) {
   .then(obj => setOpponent(obj))
 
   return (
-    <div>
-        <h3>Game vs {opponent} </h3>
+    <div className="card">
+        <h5 className="card-title">Game vs {opponent} </h5>
     </div>
   )
 }

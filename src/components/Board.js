@@ -3,23 +3,12 @@ import { useState, useEffect } from 'react'
 import { Chessboard } from "react-chessboard";
 import { NavLink } from 'react-router-dom';
 
-function Board({ id, game, setGame, userId, setOngoingGames}) {
+function Board({ id, game, setGame, userId, setOngoingGames, ongoing}) {
   
   const [position, setPosition] = useState('')
   const [side, setSide] = useState('')
   const [isCheckmate, setIsCheckmate] = useState(false)
   const [isStalemate, setIsStalemate] = useState(false)
-
-  useEffect(() => {
-    if (game.isCheckmate()) {
-      setIsCheckmate(true)
-    } else if (game.isStalemate()) {
-      setIsCheckmate(true)
-    } else {
-      setIsCheckmate(false)
-      setIsStalemate(false)
-    }
-  }, [])
 
   if (game.isGameOver()) {
     fetch(`http://localhost:9292/ongoing/`, {
@@ -74,7 +63,7 @@ function Board({ id, game, setGame, userId, setOngoingGames}) {
     if (gameCopy.isCheckmate()) {
       setIsCheckmate(true)
     } else if (gameCopy.isStalemate()) {
-      setIsCheckmate(true)
+      setIsStalemate(true)
     }
 
     if (gameCopy.isGameOver()) {
@@ -116,12 +105,14 @@ function Board({ id, game, setGame, userId, setOngoingGames}) {
     return true;
     }
 
+    console.log('ongoing:', ongoing)
+
   return (
-    <div>
+    <div className="board">
       <NavLink to='/' className="logout">log out</NavLink>
       <div className="board">
-        {isCheckmate||isStalemate? <h1>GameOver</h1> : null}
-        <Chessboard id="BasicBoard" boardOrientation={side==='w' ? 'white' : 'black'} position={game.fen()} onPieceDrop={onDrop} />
+        {ongoing===0||isCheckmate||isStalemate ? <h1>GameOver</h1> : <h1>{game.turn()==='w' ? 'white' : 'black'} to move</h1>}
+        <Chessboard id="BasicBoard" customBoardStyle={{ borderRadius: '5px', boxShadow: '0 5px 15px rgba(0, 0, 0, 0.5 '}} boardOrientation={side==='w' ? 'white' : 'black'} position={game.fen()} onPieceDrop={onDrop} />
       </div>
     </div>
   );
