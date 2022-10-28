@@ -2,8 +2,20 @@
   text-align: center;
 }
 
+body {
+  background-image: url('https://cdn.pixabay.com/photo/2016/09/26/22/58/chess-1697301__340.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.login {
+  position:absolute;
+  margin:5%;  
+}
+
 .loginButton{
-  background-color: red; /* Green */
+  background-color: rgb(50, 70, 96); /* Green */
   border: none;
   color: white;
   padding: 10px 35px;
@@ -14,9 +26,122 @@
   font-size: 16px;
   margin: 4px 2px;
   cursor: pointer;
+  border-radius: 10%;
 }
 
 .loginButton:hover{
   background-color: black;
   color: white;
 }
+
+.board {
+  display: flex;
+  justify-content: center;
+  margin-top: 15%;
+}
+
+.list {
+  margin-top: 2%;
+  margin-left: 5%;
+}
+
+.logout {
+  position: absolute;
+  /* position:absolute; */
+  top: 2%;
+  right:5%;
+  text-decoration: none;
+  color:white;
+  font: optional;
+  font-size: 20px;
+  border: 1px solid black;
+  background-color: black;
+  padding: 10px 30px;
+  
+}
+
+#newGame {
+  position:absolute;
+}
+
+.formMargin {
+  margin: 2%;
+}
+
+input{
+  width: 10vw;
+  height: 3vw;
+  color:wheat;
+  font-weight: bold;
+  background-color: black;
+
+}
+.form {
+  margin: 2%;
+  display: flex;
+}
+
+.login {
+  padding-top: 10%;
+  margin: 10px;
+  margin:5%;
+  
+}
+.Form_user {
+  margin: 2%;
+  height: 20vw;
+  display: flex;
+  justify-content: center;
+}
+
+#newGame{
+  position: absolute;
+  top: 2%;
+  right: 5%;
+  text-decoration: none;
+  color:white;
+  font: optional;
+  font-size: 20px;
+  border: 1px solid black;
+  background-color: black;
+  padding: 10px 30px;
+}
+
+
+.form-control{
+  background-image: linear-gradient(to right, rgb(235, 214, 183), black);
+  color: white;
+  width: 400px;
+  height: 40px;
+  align-items: center;
+  margin: 2px;
+  font-family: 'Karla', sans-serif;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.Button {
+  background-color: rgb(50, 70, 96); /* Green */
+  border: none;
+  color: white;
+  padding: 10px 35px;
+  margin: 40px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 10%;
+}
+
+.Button:hover{
+  background-color: burlywood;
+  color: white;
+}
+
+

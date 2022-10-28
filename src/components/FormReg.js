@@ -1,21 +1,23 @@
 import {React, useState} from 'react';
-import {useNavigate} from 'react-router-dom';
+
 
 function FormReg({ setLogin, setRegister }) {
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [passwordAgain, setPasswordAgain] = useState('')
     const [username, setUsername] = useState('')
+    const[users, setUsers] = useState('')
 
 
+console.log(users)
 
     function handleSubmit(e){
         e.preventDefault();
         console.log(username, email, password, passwordAgain);
-        if (password === passwordAgain) {
+        if (password === passwordAgain)  {
             fetch('http://localhost:9292/users', {
                 method: 'POST',
                 headers: { 
@@ -28,10 +30,10 @@ function FormReg({ setLogin, setRegister }) {
                 })
             })
             .then(res => res.json())
-            .then(data => console.log(data))
+            .then(data => setUsers(data))
             setLogin(false)
             setRegister(true)
-            navigate('/login')
+            alert('You have successfully registered!')
         
         } else {
             console.log('your passswords don\'t match')
@@ -41,7 +43,7 @@ function FormReg({ setLogin, setRegister }) {
 
     return (
         <div className="FormReg">
-            <form  onSubmit={handleSubmit}>
+            <form class="Form"  onSubmit={handleSubmit}>
                 <div className="form-group">
 
                     <label for="Create User Name"></label>
@@ -66,14 +68,14 @@ function FormReg({ setLogin, setRegister }) {
 
                     <input 
                         type="password" 
-                        className="form_control" 
+                        className="form-control"
                         placeholder="Enter password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
 
                     <input type="password"
-                        className="form_control"
+                        className="form-control"
                         placeholder="Enter password again"
                         onChange={(e) => setPasswordAgain(e.target.value)}
                         value={passwordAgain}

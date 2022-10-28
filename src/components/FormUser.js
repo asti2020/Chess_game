@@ -1,14 +1,18 @@
 import {React, useState} from 'react';
-import { useNavigate } from 'react-router-dom'
-// import { Form } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import  Games from './Games.js';
 
 
-function FormUser( {handleLoginSubmit} ){
+function FormUser() {
     const navigate = useNavigate()
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    const [user, setUser] = useState(' ')
+    const [userGame, setGameToUser] = useState(' ')
+    const[userId, setUserId] = useState(' ')
+    const[username, setusername] = useState(' ')
+    const[id, setId] = useState(' ')
+    const [ongoingGames, setOngoinggames] = useState([])
 
     function handleSubmit(e){
         e.preventDefault();
@@ -23,50 +27,41 @@ function FormUser( {handleLoginSubmit} ){
                 email: email,
                 password: password})
         })
+
         .then(res => res.json())
-        .then(data => setUser(data))
-        navigate('/home')
+        .then(user => {
+            setUserId(user.id)
+            setusername(user.username)
+            return user
+        })
+        
+        .then((user)=> {
+            fetch(`http://localhost:9292/games/${user.id}`)
+            .then(res => res.json())
+            .then(games => {
+                console.log(games)
+                setGameToUser(games)
+                setOngoinggames(games.filter(game => game.ongoing===0).length)
+        })
+
+        navigate('/game')
+
+    })
+    }
+    function handleClick(id){
+        setId(id)
     }
 
-    console.log(user)
-    
-        // .then(res => res.json())
-        // .then(data => {console.log(data))
 
-    //     fetch('http://localhost:9292/users')
-    //     .then(r => r.json())
-    //     .then(obj => {
-    //         obj.map((user) => {
-    //             if (user.email === email && user.password === password) {
-    //                 fetch(`http://localhost:9292/mygames/(user.id)`)
-    //                 .then(r => r.json())
-    //                 .then(obj => handleLoginSubmit(obj))
-    //                 .then((obj) => console.log(obj))
-    //                 return navigate('/home')
-    //             }else{
-    //                 return false
-    //             }
-    //         })
-    //     })
-    //     console.log(email, password)
-    // }
-    //     //     // setEmail('')
-    //     // // setPassword('')
-    //     // if (email === 'email' && password === 'password'){
-    //     //     navigate('/home')
-    //     // } else {
-    //     //     alert('Please fill out all fields')
-    //     // }
-
-
-
+    console.log(userGame)
 
     return (
+        <>
+        {/* <UserList userGame={userGame} userId={userId} username={username}/> */}
         <div className="Form_user">
 
             <form  onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label for="exampleInputEmail1"></label>   
+                <div className="form-group"> 
                     <input type="email"
                         className="form-control" 
                         id="exampleInputEmail1" 
@@ -75,19 +70,22 @@ function FormUser( {handleLoginSubmit} ){
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                     />
-                    <small id="emailHelp" className="form-text text-muted"></small>
+                    {/* <small id="emailHelp" className="form-text text-muted"></small> */}
                     <input 
                         type="password" 
-                        className="form_control" 
+                        className="form-control"  
                         placeholder="Enter password"
                         onChange={(e) => setPassword(e.target.value)}
                         value={password}
                     />
-                    <input type="submit"/>
+                    <input className='Button' type="submit"/>
 
                 </div>
             </form>
             </div>
+
+            <Games id={id} userId={userId} username={username} ongoingGames={ongoingGames} handleClick={handleClick}/>
+</>
     )
 }
 

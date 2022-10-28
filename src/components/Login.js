@@ -4,11 +4,10 @@ import {useState} from 'react';
 import FormUser from './FormUser.js';
 import FormReg from './FormReg.js';
 
+
 function Login({ handleLoginSubmit }) {
     const [login, setLogin] = useState(true);
     const [register, setRegister] = useState(true)
-
-
 
     const handleClickLog = (e) => {
         e.preventDefault()
